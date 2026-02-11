@@ -84,10 +84,10 @@ export function useEnvVars() {
     let imported = 0;
     let merged = 0;
 
-    const existingKeyMap = new Map<string, number>();
+    const existingKeyMap = new Map<string, number | "ambiguous">();
     rows.forEach((row, idx) => {
       if (row.status !== "deleted") {
-        existingKeyMap.set(row.key, idx);
+        existingKeyMap.set(row.key, existingKeyMap.has(row.key) ? "ambiguous" : idx);
       }
     });
 
@@ -95,8 +95,9 @@ export function useEnvVars() {
     const newRows: EnvVarRow[] = [];
 
     for (const p of parsed) {
-      const existingIdx = existingKeyMap.get(p.key);
-      if (existingIdx !== undefined) {
+      const existing = existingKeyMap.get(p.key);
+      if (existing !== undefined && existing !== "ambiguous") {
+        const existingIdx = existing;
         const existingRow = updatedRows[existingIdx];
         updatedRows[existingIdx] = {
           ...existingRow,
