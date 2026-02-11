@@ -1,7 +1,10 @@
 .envvar-table-wrapper {
   overflow-x: auto;
-  border-radius: 12px;
+  border-radius: 14px;
   border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
 }
 
 .envvar-table {
@@ -11,7 +14,7 @@
 }
 
 .envvar-table thead {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.35);
 }
 
 .envvar-table th {
@@ -21,8 +24,9 @@
   font-weight: 600;
   font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   white-space: nowrap;
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .envvar-th-status {
@@ -35,13 +39,21 @@
   vertical-align: top;
 }
 
+.envvar-table tbody tr {
+  transition: background var(--duration-fast);
+}
+
+.envvar-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
 .envvar-row-new {
-  border-left: 3px solid #4ade80;
+  border-left: 3px solid var(--accent-green);
   background: rgba(74, 222, 128, 0.04);
 }
 
 .envvar-row-edited {
-  border-left: 3px solid #fbbf24;
+  border-left: 3px solid var(--accent-yellow);
   background: rgba(251, 191, 36, 0.04);
 }
 
@@ -50,7 +62,7 @@
 }
 
 .envvar-row-deleted {
-  border-left: 3px solid #f87171;
+  border-left: 3px solid var(--accent-red);
   background: rgba(248, 113, 113, 0.04);
   opacity: 0.6;
 }
@@ -67,11 +79,24 @@
   border-radius: 50%;
 }
 
+.envvar-row-new .status-dot {
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(74, 222, 128, 0);
+  }
+}
+
 .envvar-input {
   width: 100%;
   padding: 6px 10px;
   background: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 6px;
   color: white;
   font-size: 0.85rem;
@@ -81,7 +106,7 @@
 
 .envvar-input:focus {
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 2px rgba(252, 109, 38, 0.12);
+  box-shadow: 0 0 0 3px rgba(252, 109, 38, 0.1);
   outline: none;
 }
 
@@ -89,7 +114,7 @@
   width: 100%;
   padding: 6px 10px;
   background: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 6px;
   color: white;
   font-size: 0.85rem;
@@ -135,7 +160,7 @@
 }
 
 .envvar-error span {
-  color: #f87171;
+  color: var(--accent-red);
   font-size: 0.75rem;
 }
 

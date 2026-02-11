@@ -9,6 +9,7 @@
   border-top-color: var(--accent-color);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
+  filter: drop-shadow(0 0 8px rgba(252, 109, 38, 0.4));
 }
 
 .loading-message {

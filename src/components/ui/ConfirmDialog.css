@@ -2,8 +2,8 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,15 +13,15 @@
 
 .confirm-dialog {
   background: rgba(22, 25, 34, 0.98);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(var(--blur-xl));
+  -webkit-backdrop-filter: blur(var(--blur-xl));
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   padding: 28px;
   max-width: 400px;
   width: 90%;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
-  animation: confirmScaleIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-dialog);
+  animation: confirmScaleIn 0.35s var(--ease-spring);
 }
 
 .confirm-icon {
@@ -29,7 +29,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
-  color: #f87171;
+  color: var(--accent-red);
 }
 
 .confirm-message {
@@ -53,6 +53,7 @@
   color: var(--text-secondary);
   cursor: pointer;
   font-weight: 500;
+  box-shadow: none;
   transition: all 0.2s;
 }
 
@@ -61,6 +62,7 @@
   color: var(--text-primary);
   transform: none;
   filter: none;
+  box-shadow: none;
 }
 
 .confirm-btn-ok {
@@ -80,6 +82,11 @@
 
 .confirm-btn-danger {
   background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 4px 16px var(--glow-red);
+}
+
+.confirm-btn-danger:hover {
+  box-shadow: 0 6px 24px var(--glow-red), 0 0 20px rgba(248, 113, 113, 0.15);
 }
 
 @keyframes confirmFadeIn {
@@ -89,7 +96,7 @@
 
 @keyframes confirmScaleIn {
   from {
-    transform: scale(0.95);
+    transform: scale(0.92);
     opacity: 0;
   }
   to {

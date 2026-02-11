@@ -19,11 +19,13 @@
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 10px;
-  transition: border-color 0.2s;
+  transition: border-color var(--duration-normal), box-shadow var(--duration-normal), background var(--duration-normal);
 }
 
 .discovered-item:hover {
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--glass-border-hover);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .discovered-item div {
