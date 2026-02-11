@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { invoke } from "@tauri-apps/api/core";
-import type { GitLabVariable, EnvVarRow, EnvVarRowSnapshot, SaveError, ImportResult } from "../models";
+import type { GitLabVariable, EnvVarRow, EnvVarRowSnapshot, SaveError, ImportResult, ImportProtection } from "../models";
 import type { ParsedEnvVar } from "../utils/envParser";
 
 interface SaveResult {
@@ -80,7 +80,7 @@ export function useEnvVars() {
     setRows(prev => [...prev, newRow]);
   }
 
-  function addRowsFromParsed(parsed: ParsedEnvVar[]): ImportResult {
+  function addRowsFromParsed(parsed: ParsedEnvVar[], protection: ImportProtection): ImportResult {
     let imported = 0;
     let merged = 0;
 
@@ -101,6 +101,8 @@ export function useEnvVars() {
         updatedRows[existingIdx] = {
           ...existingRow,
           value: p.value,
+          protected: protection.protected,
+          masked: protection.masked,
           status: existingRow.status === "new" ? "new" : "edited",
           originalSnapshot: existingRow.status === "existing" && !existingRow.originalSnapshot
             ? captureSnapshot(existingRow)
@@ -113,8 +115,8 @@ export function useEnvVars() {
           key: p.key,
           value: p.value,
           variable_type: "env_var",
-          protected: false,
-          masked: false,
+          protected: protection.protected,
+          masked: protection.masked,
           environment_scope: "*",
           description: "",
           status: "new",

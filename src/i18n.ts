@@ -121,6 +121,16 @@ const resources = {
             "file_imported_merged": "{{count}} existing variables updated from file.",
             "file_imported_mixed": "{{imported}} imported, {{merged}} existing updated from file.",
 
+            // Environment Variables - Import Options
+            "import_options_title": "Import Options",
+            "import_options_subtitle": "How do you want to import {{count}} variables?",
+            "import_unprotected": "Unprotected",
+            "import_unprotected_desc": "No protection or masking applied",
+            "import_protected": "Protected",
+            "import_protected_desc": "Only exposed to protected branches and tags",
+            "import_protected_masked": "Protected & Masked",
+            "import_protected_masked_desc": "Protected and hidden in job logs",
+
             // Environment Variables - Validation
             "key_required": "Key is required",
             "masked_min_length_warning": "Masked variables must have values of at least 8 characters.",
@@ -256,6 +266,16 @@ const resources = {
             "file_imported_new": "{{count}} variables importadas desde archivo.",
             "file_imported_merged": "{{count}} variables existentes actualizadas desde archivo.",
             "file_imported_mixed": "{{imported}} importadas, {{merged}} existentes actualizadas desde archivo.",
+
+            // Environment Variables - Import Options
+            "import_options_title": "Opciones de importacion",
+            "import_options_subtitle": "Como quieres importar {{count}} variables?",
+            "import_unprotected": "Sin proteger",
+            "import_unprotected_desc": "Sin proteccion ni enmascaramiento",
+            "import_protected": "Protegida",
+            "import_protected_desc": "Solo visible en ramas y tags protegidos",
+            "import_protected_masked": "Protegida y enmascarada",
+            "import_protected_masked_desc": "Protegida y oculta en logs de jobs",
 
             // Environment Variables - Validation
             "key_required": "La clave es obligatoria",

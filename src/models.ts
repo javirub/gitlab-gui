@@ -98,9 +98,16 @@ export interface SaveError {
   error: string;
 }
 
+export interface ImportProtection {
+  protected: boolean;
+  masked: boolean;
+}
+
 export interface ImportResult {
   imported: number;
   merged: number;
 }
+
+export type ImportPreset = "unprotected" | "protected" | "protected_masked";
 
 export type View = "actions" | "instances" | "projects" | "registry-upload" | "env-vars";

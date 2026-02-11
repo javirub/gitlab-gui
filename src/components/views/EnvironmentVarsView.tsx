@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { KeyRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { GitLabInstance, GitLabProject } from "../../models";
+import type { GitLabInstance, GitLabProject, ImportPreset, ImportProtection } from "../../models";
+import type { ParsedEnvVar } from "../../utils/envParser";
 import { useEnvVars } from "../../hooks/useEnvVars";
 import { readEnvFromClipboard, parseEnvFromPaste } from "../../utils/clipboardDetector";
 import { useToast } from "../ui/ToastContext";
 import { LoadingSpinner } from "../ui/LoadingSpinner";
+import { ImportOptionsDialog } from "../ui/ImportOptionsDialog";
 import { EnvVarToolbar } from "../env-vars/EnvVarToolbar";
 import { EnvVarTable } from "../env-vars/EnvVarTable";
 import { EnvVarFileImport } from "../env-vars/EnvVarFileImport";
@@ -16,12 +18,26 @@ interface EnvironmentVarsViewProps {
   projects: GitLabProject[];
 }
 
+interface PendingImport {
+  parsed: ParsedEnvVar[];
+  source: "clipboard" | "file";
+}
+
+function presetToProtection(preset: ImportPreset): ImportProtection {
+  switch (preset) {
+    case "unprotected": return { protected: false, masked: false };
+    case "protected": return { protected: true, masked: false };
+    case "protected_masked": return { protected: true, masked: true };
+  }
+}
+
 export function EnvironmentVarsView({ instances, projects }: EnvironmentVarsViewProps) {
   const { t } = useTranslation();
   const { showToast } = useToast();
   const envVars = useEnvVars();
   const [selectedProjectId, setSelectedProjectId] = useState("");
   const [selectedInstanceId, setSelectedInstanceId] = useState("");
+  const [pendingImport, setPendingImport] = useState<PendingImport | null>(null);
 
   function handleProjectSelect(projectLocalId: string) {
     const project = projects.find(p => p.id === projectLocalId);
@@ -50,8 +66,7 @@ export function EnvironmentVarsView({ instances, projects }: EnvironmentVarsView
     const parsed = parseEnvFromPaste(text);
     if (parsed && parsed.length > 0) {
       e.preventDefault();
-      const result = envVars.addRowsFromParsed(parsed);
-      showToast(importToastMessage("clipboard", result.imported, result.merged), "success");
+      setPendingImport({ parsed, source: "clipboard" });
     }
   }
 
@@ -62,11 +77,22 @@ export function EnvironmentVarsView({ instances, projects }: EnvironmentVarsView
         showToast(t("clipboard_no_data"), "warning");
         return;
       }
-      const result = envVars.addRowsFromParsed(parsed);
-      showToast(importToastMessage("clipboard", result.imported, result.merged), "success");
+      setPendingImport({ parsed, source: "clipboard" });
     } catch {
       showToast(t("clipboard_access_denied"), "error");
     }
+  }
+
+  function handleFileImport(parsed: ParsedEnvVar[]) {
+    setPendingImport({ parsed, source: "file" });
+  }
+
+  function handleImportConfirm(preset: ImportPreset) {
+    if (!pendingImport) return;
+    const protection = presetToProtection(preset);
+    const result = envVars.addRowsFromParsed(pendingImport.parsed, protection);
+    showToast(importToastMessage(pendingImport.source, result.imported, result.merged), "success");
+    setPendingImport(null);
   }
 
   async function handleSave() {
@@ -144,7 +170,7 @@ export function EnvironmentVarsView({ instances, projects }: EnvironmentVarsView
           />
 
           {envVars.inputMode === "file" && (
-            <EnvVarFileImport onImport={envVars.addRowsFromParsed} />
+            <EnvVarFileImport onImport={handleFileImport} />
           )}
 
           {envVars.isLoading ? (
@@ -161,6 +187,14 @@ export function EnvironmentVarsView({ instances, projects }: EnvironmentVarsView
             />
           )}
         </div>
+      )}
+
+      {pendingImport && (
+        <ImportOptionsDialog
+          count={pendingImport.parsed.length}
+          onSelect={handleImportConfirm}
+          onCancel={() => setPendingImport(null)}
+        />
       )}
     </div>
   );
