@@ -25,7 +25,7 @@ export function useGitLabProjects() {
     if (editingProjectId) {
       updated = projects.map(proj =>
         proj.id === editingProjectId
-          ? { ...proj, name: projName, project_id: projId, instance_id: projInstId }
+          ? { ...proj, name: projName.trim(), project_id: projId.trim(), instance_id: projInstId }
           : proj
       );
       setEditingProjectId(null);
@@ -36,8 +36,8 @@ export function useGitLabProjects() {
       } : {
         id: crypto.randomUUID(),
         instance_id: projInstId,
-        project_id: projId,
-        name: projName
+        project_id: projId.trim(),
+        name: projName.trim()
       };
       updated = [...projects, newProject];
     }

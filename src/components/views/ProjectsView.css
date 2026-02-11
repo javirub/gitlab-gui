@@ -40,9 +40,3 @@
   padding: 6px 14px;
   font-size: 0.8rem;
 }
-
-.btn-secondary {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}

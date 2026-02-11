@@ -268,10 +268,10 @@ const resources = {
             "file_imported_mixed": "{{imported}} importadas, {{merged}} existentes actualizadas desde archivo.",
 
             // Environment Variables - Import Options
-            "import_options_title": "Opciones de importacion",
-            "import_options_subtitle": "Como quieres importar {{count}} variables?",
+            "import_options_title": "Opciones de importación",
+            "import_options_subtitle": "¿Cómo quieres importar {{count}} variables?",
             "import_unprotected": "Sin proteger",
-            "import_unprotected_desc": "Sin proteccion ni enmascaramiento",
+            "import_unprotected_desc": "Sin protección ni enmascaramiento",
             "import_protected": "Protegida",
             "import_protected_desc": "Solo visible en ramas y tags protegidos",
             "import_protected_masked": "Protegida y enmascarada",

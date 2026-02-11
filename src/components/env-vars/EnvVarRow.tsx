@@ -68,6 +68,7 @@ export function EnvVarRowComponent({
             className="icon-btn envvar-toggle-btn"
             onClick={() => setShowValue(!showValue)}
             title={showValue ? t("hide_value") : t("reveal_value")}
+            aria-label={showValue ? t("hide_value") : t("reveal_value")}
             type="button"
           >
             {showValue ? <EyeOff size={14} /> : <Eye size={14} />}
@@ -120,17 +121,17 @@ export function EnvVarRowComponent({
         <td>
           <div className="envvar-actions">
             {isDeleted ? (
-              <button className="icon-btn" onClick={() => onUndoDelete(row.rowId)} title={t("undo_delete")} type="button">
+              <button className="icon-btn" onClick={() => onUndoDelete(row.rowId)} title={t("undo_delete")} aria-label={t("undo_delete")} type="button">
                 <Undo2 size={14} />
               </button>
             ) : (
               <>
                 {row.status === "edited" && (
-                  <button className="icon-btn" onClick={() => onUndoEdit(row.rowId)} title={t("undo_edit")} type="button">
+                  <button className="icon-btn" onClick={() => onUndoEdit(row.rowId)} title={t("undo_edit")} aria-label={t("undo_edit")} type="button">
                     <Undo2 size={14} />
                   </button>
                 )}
-                <button className="icon-btn icon-btn-danger" onClick={() => onDelete(row.rowId)} title={t("delete")} type="button">
+                <button className="icon-btn icon-btn-danger" onClick={() => onDelete(row.rowId)} title={t("delete")} aria-label={t("delete")} type="button">
                   <Trash2 size={14} />
                 </button>
               </>

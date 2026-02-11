@@ -120,10 +120,10 @@ export function ProjectsView({
                 <small>On: {instances.find(i => i.id === proj.instance_id)?.name}</small>
               </div>
               <div className="card-actions">
-                <button className="icon-btn" onClick={() => startEditProject(proj)} title={t("edit")}>
+                <button className="icon-btn" onClick={() => startEditProject(proj)} title={t("edit")} aria-label={t("edit")}>
                   <Pencil size={16} />
                 </button>
-                <button className="icon-btn icon-btn-danger" onClick={() => setConfirmDeleteId(proj.id)} title={t("delete")}>
+                <button className="icon-btn icon-btn-danger" onClick={() => setConfirmDeleteId(proj.id)} title={t("delete")} aria-label={t("delete")}>
                   <Trash2 size={16} />
                 </button>
               </div>

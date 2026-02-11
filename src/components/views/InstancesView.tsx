@@ -78,10 +78,10 @@ export function InstancesView({
                 <p>{inst.url}</p>
               </div>
               <div className="card-actions">
-                <button className="icon-btn" onClick={() => startEditInstance(inst)} title={t("edit")}>
+                <button className="icon-btn" onClick={() => startEditInstance(inst)} title={t("edit")} aria-label={t("edit")}>
                   <Pencil size={16} />
                 </button>
-                <button className="icon-btn icon-btn-danger" onClick={() => setConfirmDeleteId(inst.id)} title={t("delete")}>
+                <button className="icon-btn icon-btn-danger" onClick={() => setConfirmDeleteId(inst.id)} title={t("delete")} aria-label={t("delete")}>
                   <Trash2 size={16} />
                 </button>
               </div>
