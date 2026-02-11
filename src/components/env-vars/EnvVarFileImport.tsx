@@ -4,11 +4,12 @@ import { open } from "@tauri-apps/plugin-dialog";
 import { readTextFile } from "@tauri-apps/plugin-fs";
 import { useTranslation } from "react-i18next";
 import { parseEnvText, type ParsedEnvVar } from "../../utils/envParser";
+import type { ImportResult } from "../../models";
 import { useToast } from "../ui/ToastContext";
 import "./EnvVarFileImport.css";
 
 interface EnvVarFileImportProps {
-  onImport: (parsed: ParsedEnvVar[]) => void;
+  onImport: (parsed: ParsedEnvVar[]) => ImportResult;
 }
 
 export function EnvVarFileImport({ onImport }: EnvVarFileImportProps) {
@@ -48,10 +49,19 @@ export function EnvVarFileImport({ onImport }: EnvVarFileImportProps) {
 
   function handleImport() {
     if (preview.length > 0) {
-      onImport(preview);
+      const result = onImport(preview);
       setPreview([]);
       setFilePath(null);
-      showToast(t("clipboard_imported", { count: preview.length }), "success");
+
+      let message: string;
+      if (result.imported > 0 && result.merged > 0) {
+        message = t("file_imported_mixed", { imported: result.imported, merged: result.merged });
+      } else if (result.merged > 0) {
+        message = t("file_imported_merged", { count: result.merged });
+      } else {
+        message = t("file_imported_new", { count: result.imported });
+      }
+      showToast(message, "success");
     }
   }
 

@@ -3,7 +3,7 @@ import { KeyRound } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { GitLabInstance, GitLabProject } from "../../models";
 import { useEnvVars } from "../../hooks/useEnvVars";
-import { readEnvFromClipboard } from "../../utils/clipboardDetector";
+import { readEnvFromClipboard, parseEnvFromPaste } from "../../utils/clipboardDetector";
 import { useToast } from "../ui/ToastContext";
 import { LoadingSpinner } from "../ui/LoadingSpinner";
 import { EnvVarToolbar } from "../env-vars/EnvVarToolbar";
@@ -35,6 +35,26 @@ export function EnvironmentVarsView({ instances, projects }: EnvironmentVarsView
     });
   }
 
+  function importToastMessage(prefix: "clipboard" | "file", imported: number, merged: number): string {
+    if (imported > 0 && merged > 0) {
+      return t(`${prefix}_imported_mixed`, { imported, merged });
+    }
+    if (merged > 0) {
+      return t(`${prefix}_imported_merged`, { count: merged });
+    }
+    return t(`${prefix}_imported_new`, { count: imported });
+  }
+
+  function handlePaste(e: React.ClipboardEvent) {
+    const text = e.clipboardData.getData("text/plain");
+    const parsed = parseEnvFromPaste(text);
+    if (parsed && parsed.length > 0) {
+      e.preventDefault();
+      const result = envVars.addRowsFromParsed(parsed);
+      showToast(importToastMessage("clipboard", result.imported, result.merged), "success");
+    }
+  }
+
   async function handlePasteClipboard() {
     try {
       const parsed = await readEnvFromClipboard();
@@ -42,8 +62,8 @@ export function EnvironmentVarsView({ instances, projects }: EnvironmentVarsView
         showToast(t("clipboard_no_data"), "warning");
         return;
       }
-      envVars.addRowsFromParsed(parsed);
-      showToast(t("clipboard_imported", { count: parsed.length }), "success");
+      const result = envVars.addRowsFromParsed(parsed);
+      showToast(importToastMessage("clipboard", result.imported, result.merged), "success");
     } catch {
       showToast(t("clipboard_access_denied"), "error");
     }
@@ -57,7 +77,10 @@ export function EnvironmentVarsView({ instances, projects }: EnvironmentVarsView
 
     if (result.errors.length > 0) {
       for (const err of result.errors) {
-        showToast(err, "error");
+        const i18nKey = err.type === "create" ? "var_create_failed"
+          : err.type === "update" ? "var_update_failed"
+          : "var_delete_failed";
+        showToast(t(i18nKey, { key: err.key, error: err.error }), "error");
       }
       if (result.created + result.updated + result.deleted > 0) {
         showToast(t("save_partial_error"), "warning");
@@ -108,7 +131,7 @@ export function EnvironmentVarsView({ instances, projects }: EnvironmentVarsView
       </div>
 
       {hasProject && (
-        <>
+        <div onPaste={handlePaste}>
           <EnvVarToolbar
             inputMode={envVars.inputMode}
             setInputMode={envVars.setInputMode}
@@ -137,7 +160,7 @@ export function EnvironmentVarsView({ instances, projects }: EnvironmentVarsView
               onUndoDelete={envVars.undoRowDelete}
             />
           )}
-        </>
+        </div>
       )}
     </div>
   );

@@ -4,7 +4,12 @@
       "Bash(dir:*)",
       "Bash(bun add:*)",
       "mcp__ide__getDiagnostics",
-      "Bash(bun run build:*)"
+      "Bash(bun run build:*)",
+      "Bash(cargo build:*)",
+      "Bash(bun update:*)",
+      "Bash(bun run vite:*)",
+      "Bash(bunx tsc:*)",
+      "Bash(cargo check:*)"
     ]
   }
 }

@@ -109,6 +109,15 @@ export function EnvVarRowComponent({
           />
         </td>
         <td>
+          <input
+            className="envvar-input"
+            value={row.description}
+            onChange={e => onUpdate(row.rowId, "description", e.target.value)}
+            disabled={isDeleted}
+            placeholder={t("var_description")}
+          />
+        </td>
+        <td>
           <div className="envvar-actions">
             {isDeleted ? (
               <button className="icon-btn" onClick={() => onUndoDelete(row.rowId)} title={t("undo_delete")} type="button">
@@ -131,7 +140,7 @@ export function EnvVarRowComponent({
       </tr>
       {showConflict && (
         <tr>
-          <td colSpan={8} className="envvar-conflict-cell">
+          <td colSpan={9} className="envvar-conflict-cell">
             <EnvVarConflictWarning />
           </td>
         </tr>

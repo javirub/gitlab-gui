@@ -27,8 +27,10 @@ async fn upload_package(
     params: PackageUploadParams,
 ) -> Result<String, String> {
     let client = get_client(&app, &params.instance_id)?;
-    client.upload_package_file(params)
-        .map_err(|e| format!("Upload failed: {}", e))
+    tokio::task::spawn_blocking(move || {
+        client.upload_package_file(params)
+            .map_err(|e| format!("Upload failed: {}", e))
+    }).await.map_err(|e| format!("Task failed: {}", e))?
 }
 
 #[tauri::command]
@@ -38,8 +40,10 @@ async fn search_projects(
     query: Option<String>,
 ) -> Result<Vec<models::GitLabProject>, String> {
     let client = get_client(&app, &instance_id)?;
-    client.search_projects(query)
-        .map_err(|e| format!("Search failed: {}", e))
+    tokio::task::spawn_blocking(move || {
+        client.search_projects(query)
+            .map_err(|e| format!("Search failed: {}", e))
+    }).await.map_err(|e| format!("Task failed: {}", e))?
 }
 
 #[tauri::command]
@@ -49,8 +53,10 @@ async fn list_variables(
     project_id: String,
 ) -> Result<Vec<GitLabVariable>, String> {
     let client = get_client(&app, &instance_id)?;
-    client.list_variables(&project_id)
-        .map_err(|e| format!("Failed to list variables: {}", e))
+    tokio::task::spawn_blocking(move || {
+        client.list_variables(&project_id)
+            .map_err(|e| format!("Failed to list variables: {}", e))
+    }).await.map_err(|e| format!("Task failed: {}", e))?
 }
 
 #[tauri::command]
@@ -59,15 +65,18 @@ async fn create_variable(
     params: CreateVariableParams,
 ) -> Result<GitLabVariable, String> {
     let client = get_client(&app, &params.instance_id)?;
-    client.create_variable(
-        &params.project_id,
-        &params.key,
-        &params.value,
-        &params.variable_type,
-        params.protected,
-        params.masked,
-        &params.environment_scope,
-    ).map_err(|e| format!("Failed to create variable: {}", e))
+    tokio::task::spawn_blocking(move || {
+        client.create_variable(
+            &params.project_id,
+            &params.key,
+            &params.value,
+            &params.variable_type,
+            params.protected,
+            params.masked,
+            &params.environment_scope,
+            &params.description,
+        ).map_err(|e| format!("Failed to create variable: {}", e))
+    }).await.map_err(|e| format!("Task failed: {}", e))?
 }
 
 #[tauri::command]
@@ -76,15 +85,18 @@ async fn update_variable(
     params: UpdateVariableParams,
 ) -> Result<GitLabVariable, String> {
     let client = get_client(&app, &params.instance_id)?;
-    client.update_variable(
-        &params.project_id,
-        &params.key,
-        &params.value,
-        &params.variable_type,
-        params.protected,
-        params.masked,
-        &params.environment_scope,
-    ).map_err(|e| format!("Failed to update variable: {}", e))
+    tokio::task::spawn_blocking(move || {
+        client.update_variable(
+            &params.project_id,
+            &params.key,
+            &params.value,
+            &params.variable_type,
+            params.protected,
+            params.masked,
+            &params.environment_scope,
+            &params.description,
+        ).map_err(|e| format!("Failed to update variable: {}", e))
+    }).await.map_err(|e| format!("Task failed: {}", e))?
 }
 
 #[tauri::command]
@@ -93,11 +105,13 @@ async fn delete_variable(
     params: DeleteVariableParams,
 ) -> Result<(), String> {
     let client = get_client(&app, &params.instance_id)?;
-    client.delete_variable(
-        &params.project_id,
-        &params.key,
-        &params.environment_scope,
-    ).map_err(|e| format!("Failed to delete variable: {}", e))
+    tokio::task::spawn_blocking(move || {
+        client.delete_variable(
+            &params.project_id,
+            &params.key,
+            &params.environment_scope,
+        ).map_err(|e| format!("Failed to delete variable: {}", e))
+    }).await.map_err(|e| format!("Task failed: {}", e))?
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

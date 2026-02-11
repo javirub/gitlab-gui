@@ -68,7 +68,7 @@ impl GitLabClient {
     pub fn search_projects(&self, query: Option<String>) -> Result<Vec<crate::models::GitLabProject>> {
         let mut url = format!("{}/api/v4/projects?membership=true&simple=true", self.base_url());
         if let Some(q) = query {
-            url.push_str(&format!("&search={}", q));
+            url.push_str(&format!("&search={}", urlencoding::encode(&q)));
         }
 
         let response = self.client.get(&url).send()?;
@@ -105,6 +105,7 @@ impl GitLabClient {
                     protected: v["protected"].as_bool().unwrap_or(false),
                     masked: v["masked"].as_bool().unwrap_or(false),
                     environment_scope: v["environment_scope"].as_str().unwrap_or("*").to_string(),
+                    description: v["description"].as_str().unwrap_or_default().to_string(),
                 }
             }).collect();
             Ok(mapped)
@@ -115,7 +116,7 @@ impl GitLabClient {
         }
     }
 
-    pub fn create_variable(&self, project_id: &str, key: &str, value: &str, variable_type: &str, protected: bool, masked: bool, environment_scope: &str) -> Result<GitLabVariable> {
+    pub fn create_variable(&self, project_id: &str, key: &str, value: &str, variable_type: &str, protected: bool, masked: bool, environment_scope: &str, description: &str) -> Result<GitLabVariable> {
         let encoded = self.encode_project_id(project_id);
         let url = format!("{}/api/v4/projects/{}/variables", self.base_url(), encoded);
 
@@ -126,6 +127,7 @@ impl GitLabClient {
             "protected": protected,
             "masked": masked,
             "environment_scope": environment_scope,
+            "description": description,
         });
 
         let response = self.client.post(&url)
@@ -141,6 +143,7 @@ impl GitLabClient {
                 protected: v["protected"].as_bool().unwrap_or(false),
                 masked: v["masked"].as_bool().unwrap_or(false),
                 environment_scope: v["environment_scope"].as_str().unwrap_or("*").to_string(),
+                description: v["description"].as_str().unwrap_or_default().to_string(),
             })
         } else {
             let status = response.status();
@@ -149,7 +152,7 @@ impl GitLabClient {
         }
     }
 
-    pub fn update_variable(&self, project_id: &str, key: &str, value: &str, variable_type: &str, protected: bool, masked: bool, environment_scope: &str) -> Result<GitLabVariable> {
+    pub fn update_variable(&self, project_id: &str, key: &str, value: &str, variable_type: &str, protected: bool, masked: bool, environment_scope: &str, description: &str) -> Result<GitLabVariable> {
         let encoded = self.encode_project_id(project_id);
         let key_encoded = urlencoding::encode(key);
         let mut url = format!("{}/api/v4/projects/{}/variables/{}", self.base_url(), encoded, key_encoded);
@@ -164,6 +167,7 @@ impl GitLabClient {
             "protected": protected,
             "masked": masked,
             "environment_scope": environment_scope,
+            "description": description,
         });
 
         let response = self.client.put(&url)
@@ -179,6 +183,7 @@ impl GitLabClient {
                 protected: v["protected"].as_bool().unwrap_or(false),
                 masked: v["masked"].as_bool().unwrap_or(false),
                 environment_scope: v["environment_scope"].as_str().unwrap_or("*").to_string(),
+                description: v["description"].as_str().unwrap_or_default().to_string(),
             })
         } else {
             let status = response.status();

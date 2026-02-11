@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { GitLabInstance } from "../models";
+import { GitLabInstance, GitLabProject } from "../models";
 import { useStore } from "./useStore";
 
 export function useGitLabInstances() {
@@ -41,14 +41,14 @@ export function useGitLabInstances() {
     resetForm();
   }
 
-  async function deleteInstance(id: string): Promise<boolean> {
+  async function deleteInstance(id: string): Promise<GitLabProject[]> {
     const updatedInstances = instances.filter(i => i.id !== id);
     const allProjects = await getProjects();
     const updatedProjects = allProjects.filter(p => p.instance_id !== id);
     setInstances(updatedInstances);
     await storeInstances(updatedInstances);
     await storeProjects(updatedProjects);
-    return true;
+    return updatedProjects;
   }
 
   function startEditInstance(inst: GitLabInstance) {

@@ -37,6 +37,7 @@ pub struct GitLabVariable {
     pub protected: bool,
     pub masked: bool,
     pub environment_scope: String,
+    pub description: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -49,6 +50,7 @@ pub struct CreateVariableParams {
     pub protected: bool,
     pub masked: bool,
     pub environment_scope: String,
+    pub description: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -61,6 +63,7 @@ pub struct UpdateVariableParams {
     pub protected: bool,
     pub masked: bool,
     pub environment_scope: String,
+    pub description: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

@@ -21,13 +21,21 @@ function App() {
     projectsHook.loadProjects();
   }, []);
 
+  async function handleDeleteInstance(id: string): Promise<boolean> {
+    const updatedProjects = await instancesHook.deleteInstance(id);
+    projectsHook.setProjects(updatedProjects);
+    return true;
+  }
+
   return (
     <ToastProvider>
       <div className="app-container">
         <Sidebar view={view} setView={setView} />
         <main className="main-content">
           {view === "actions" && <ActionsView setView={setView} />}
-          {view === "instances" && <InstancesView {...instancesHook} />}
+          {view === "instances" && (
+            <InstancesView {...instancesHook} deleteInstance={handleDeleteInstance} />
+          )}
           {view === "projects" && (
             <ProjectsView instances={instancesHook.instances} {...projectsHook} />
           )}

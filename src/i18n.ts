@@ -87,6 +87,7 @@ const resources = {
             "var_protected": "Protected",
             "var_masked": "Masked",
             "var_scope": "Scope",
+            "var_description": "Description",
             "var_actions": "Actions",
 
             // Environment Variables - Row Statuses
@@ -110,8 +111,19 @@ const resources = {
 
             // Environment Variables - Clipboard
             "clipboard_no_data": "No valid environment variable data found in clipboard.",
-            "clipboard_imported": "{{count}} variables imported from clipboard.",
+            "clipboard_imported_new": "{{count}} variables imported from clipboard.",
+            "clipboard_imported_merged": "{{count}} existing variables updated from clipboard.",
+            "clipboard_imported_mixed": "{{imported}} imported, {{merged}} existing updated from clipboard.",
             "clipboard_access_denied": "Could not access clipboard. Please check permissions.",
+
+            // Environment Variables - File Import Results
+            "file_imported_new": "{{count}} variables imported from file.",
+            "file_imported_merged": "{{count}} existing variables updated from file.",
+            "file_imported_mixed": "{{imported}} imported, {{merged}} existing updated from file.",
+
+            // Environment Variables - Validation
+            "key_required": "Key is required",
+            "masked_min_length_warning": "Masked variables must have values of at least 8 characters.",
 
             // Environment Variables - Warnings
             "masked_var_warning": "A masked variable with this key already exists. Saving will overwrite it via delete + recreate.",
@@ -211,6 +223,7 @@ const resources = {
             "var_protected": "Protegida",
             "var_masked": "Enmascarada",
             "var_scope": "Ámbito",
+            "var_description": "Descripción",
             "var_actions": "Acciones",
 
             // Environment Variables - Row Statuses
@@ -234,8 +247,19 @@ const resources = {
 
             // Environment Variables - Clipboard
             "clipboard_no_data": "No se encontraron datos válidos de variables de entorno en el portapapeles.",
-            "clipboard_imported": "{{count}} variables importadas del portapapeles.",
+            "clipboard_imported_new": "{{count}} variables importadas del portapapeles.",
+            "clipboard_imported_merged": "{{count}} variables existentes actualizadas del portapapeles.",
+            "clipboard_imported_mixed": "{{imported}} importadas, {{merged}} existentes actualizadas del portapapeles.",
             "clipboard_access_denied": "No se pudo acceder al portapapeles. Verifica los permisos.",
+
+            // Environment Variables - File Import Results
+            "file_imported_new": "{{count}} variables importadas desde archivo.",
+            "file_imported_merged": "{{count}} variables existentes actualizadas desde archivo.",
+            "file_imported_mixed": "{{imported}} importadas, {{merged}} existentes actualizadas desde archivo.",
+
+            // Environment Variables - Validation
+            "key_required": "La clave es obligatoria",
+            "masked_min_length_warning": "Las variables enmascaradas deben tener valores de al menos 8 caracteres.",
 
             // Environment Variables - Warnings
             "masked_var_warning": "Ya existe una variable enmascarada con esta clave. Al guardar se sobreescribirá mediante eliminar + recrear.",

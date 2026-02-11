@@ -38,6 +38,7 @@ export function EnvVarTable({ rows, onUpdate, onDelete, onUndoEdit, onUndoDelete
             <th>{t("var_protected")}</th>
             <th>{t("var_masked")}</th>
             <th>{t("var_scope")}</th>
+            <th>{t("var_description")}</th>
             <th>{t("var_actions")}</th>
           </tr>
         </thead>

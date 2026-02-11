@@ -30,6 +30,7 @@ export interface GitLabVariable {
   protected: boolean;
   masked: boolean;
   environment_scope: string;
+  description: string;
 }
 
 export interface CreateVariableParams {
@@ -41,6 +42,7 @@ export interface CreateVariableParams {
   protected: boolean;
   masked: boolean;
   environment_scope: string;
+  description: string;
 }
 
 export interface UpdateVariableParams {
@@ -52,6 +54,7 @@ export interface UpdateVariableParams {
   protected: boolean;
   masked: boolean;
   environment_scope: string;
+  description: string;
 }
 
 export interface DeleteVariableParams {
@@ -63,6 +66,16 @@ export interface DeleteVariableParams {
 
 export type EnvVarStatus = "existing" | "new" | "edited" | "deleted";
 
+export interface EnvVarRowSnapshot {
+  key: string;
+  value: string;
+  variable_type: string;
+  protected: boolean;
+  masked: boolean;
+  environment_scope: string;
+  description: string;
+}
+
 export interface EnvVarRow {
   rowId: string;
   key: string;
@@ -71,10 +84,23 @@ export interface EnvVarRow {
   protected: boolean;
   masked: boolean;
   environment_scope: string;
+  description: string;
   status: EnvVarStatus;
   originalKey: string;
   isMaskedOnServer: boolean;
   errors: string[];
+  originalSnapshot: EnvVarRowSnapshot | null;
+}
+
+export interface SaveError {
+  type: "create" | "update" | "delete";
+  key: string;
+  error: string;
+}
+
+export interface ImportResult {
+  imported: number;
+  merged: number;
 }
 
 export type View = "actions" | "instances" | "projects" | "registry-upload" | "env-vars";
