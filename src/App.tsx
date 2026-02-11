@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     instancesHook.loadInstances();
     projectsHook.loadProjects();
-  }, []);
+  }, [instancesHook.loadInstances, projectsHook.loadProjects]);
 
   async function handleDeleteInstance(id: string): Promise<boolean> {
     const updatedProjects = await instancesHook.deleteInstance(id);

@@ -3,8 +3,6 @@ export interface ParsedEnvVar {
   value: string;
 }
 
-const KEY_REGEX = /^[A-Za-z_][A-Za-z0-9_]*$/;
-
 export function parseEnvText(text: string): ParsedEnvVar[] | null {
   const lines = text.split(/\r?\n/);
   const nonEmptyLines = lines.filter(l => {
@@ -43,9 +41,7 @@ export function parseEnvText(text: string): ParsedEnvVar[] | null {
         value = value.slice(1, -1);
       }
 
-      if (KEY_REGEX.test(key)) {
-        parsed.push({ key, value });
-      }
+      parsed.push({ key, value });
     }
   }
 
