@@ -57,6 +57,5 @@ A powerful and intuitive desktop application built with **Tauri**, **Rust**, and
 
 ### 🔐 Authentication Note
 For security reasons, this application requires a **Personal Access Token (PAT)** with `api` or `write_package_registry` scopes. Standard account passwords are not supported for API operations.
-
 ## 📄 License
 MIT
