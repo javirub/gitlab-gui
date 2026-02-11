@@ -187,18 +187,22 @@ export function useEnvVars() {
     const keyCount = new Map<string, number>();
     for (const row of rows) {
       if (row.status === "deleted") continue;
-      const count = keyCount.get(row.key) || 0;
-      keyCount.set(row.key, count + 1);
+      const trimmedKey = row.key.trim();
+      if (trimmedKey) {
+        const count = keyCount.get(trimmedKey) || 0;
+        keyCount.set(trimmedKey, count + 1);
+      }
     }
 
     const validatedRows = rows.map(row => {
       const errors: string[] = [];
       if (row.status !== "deleted") {
-        if (!row.key.trim()) {
+        const trimmedKey = row.key.trim();
+        if (!trimmedKey) {
           errors.push("key_required");
           valid = false;
         }
-        if (row.key && (keyCount.get(row.key) || 0) > 1) {
+        if (trimmedKey && (keyCount.get(trimmedKey) || 0) > 1) {
           errors.push("duplicate_key_warning");
           valid = false;
         }

@@ -57,7 +57,7 @@ export function RegistryUploadView({ instances, projects, setView }: RegistryUpl
             onChange={e => {
               const p = projects.find(proj => proj.id === e.target.value);
               if (p) {
-                setUploadParams({ ...uploadParams, project_id: p.project_id, instance_id: p.instance_id });
+                setUploadParams(prev => ({ ...prev, project_id: p.project_id, instance_id: p.instance_id }));
               }
             }}
           >
@@ -73,7 +73,7 @@ export function RegistryUploadView({ instances, projects, setView }: RegistryUpl
             <label>{t("instance_manual")}</label>
             <select
               value={uploadParams.instance_id}
-              onChange={e => setUploadParams({ ...uploadParams, instance_id: e.target.value })}
+              onChange={e => setUploadParams(prev => ({ ...prev, instance_id: e.target.value }))}
             >
               <option value="">{t("select_instance")}</option>
               {instances.map(inst => (
@@ -87,7 +87,7 @@ export function RegistryUploadView({ instances, projects, setView }: RegistryUpl
           <label>{t("project_id_manual")}</label>
           <input
             value={uploadParams.project_id}
-            onChange={e => setUploadParams({ ...uploadParams, project_id: e.target.value })}
+            onChange={e => setUploadParams(prev => ({ ...prev, project_id: e.target.value }))}
           />
         </div>
 
@@ -95,7 +95,7 @@ export function RegistryUploadView({ instances, projects, setView }: RegistryUpl
           <label>{t("package_name")}</label>
           <input
             value={uploadParams.package_name}
-            onChange={e => setUploadParams({ ...uploadParams, package_name: e.target.value })}
+            onChange={e => setUploadParams(prev => ({ ...prev, package_name: e.target.value }))}
           />
         </div>
 
@@ -103,7 +103,7 @@ export function RegistryUploadView({ instances, projects, setView }: RegistryUpl
           <label>{t("package_version")}</label>
           <input
             value={uploadParams.package_version}
-            onChange={e => setUploadParams({ ...uploadParams, package_version: e.target.value })}
+            onChange={e => setUploadParams(prev => ({ ...prev, package_version: e.target.value }))}
           />
         </div>
 

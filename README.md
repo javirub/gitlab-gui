@@ -72,7 +72,7 @@ Download the latest installer from [GitHub Releases](https://github.com/javirub/
    ```
 
 ### Authentication Note
-For security reasons, this application requires a **Personal Access Token (PAT)** with `api` scope. Standard account passwords are not supported for API operations.
+For security reasons, this application uses a **Personal Access Token (PAT)** for all GitLab API operations. For full functionality (including CI/CD variables and project management), use a token with `api` scope. If you only intend to use the Package Registry upload feature, a token with the more limited `write_package_registry` scope is sufficient. Standard account passwords are not supported for API operations.
 
 ## License
 MIT

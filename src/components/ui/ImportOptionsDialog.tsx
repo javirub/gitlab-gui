@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Unlock, Shield, ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { ImportPreset } from "../../models";
@@ -12,9 +13,23 @@ interface ImportOptionsDialogProps {
 export function ImportOptionsDialog({ count, onSelect, onCancel }: ImportOptionsDialogProps) {
   const { t } = useTranslation();
 
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") onCancel();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onCancel]);
+
   return (
     <div className="import-options-overlay" onClick={onCancel}>
-      <div className="import-options-dialog" onClick={e => e.stopPropagation()}>
+      <div
+        className="import-options-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-label={t("import_options_title")}
+        onClick={e => e.stopPropagation()}
+      >
         <p className="import-options-title">{t("import_options_title")}</p>
         <p className="import-options-subtitle">
           {t("import_options_subtitle", { count })}

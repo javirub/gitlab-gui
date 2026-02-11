@@ -50,7 +50,7 @@ export function EnvVarRowComponent({
           {row.errors.length > 0 && (
             <div className="envvar-error">
               {row.errors.map((err, i) => (
-                <span key={i}>{t(err, err)}</span>
+                <span key={i}>{t(err, { defaultValue: err })}</span>
               ))}
             </div>
           )}
