@@ -14,11 +14,11 @@ interface EnvVarTableProps {
 export function EnvVarTable({ rows, onUpdate, onDelete, onUndoEdit, onUndoDelete }: EnvVarTableProps) {
   const { t } = useTranslation();
 
-  // Collect masked keys from existing rows for conflict detection
+  // Collect masked keys from non-deleted server rows for conflict detection
   const existingMaskedKeys = new Set<string>();
   for (const row of rows) {
-    if (row.status === "existing" && row.isMaskedOnServer) {
-      existingMaskedKeys.add(row.key);
+    if (row.status !== "deleted" && row.isMaskedOnServer) {
+      existingMaskedKeys.add(row.originalKey);
     }
   }
 

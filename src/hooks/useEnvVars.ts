@@ -199,7 +199,7 @@ export function useEnvVars() {
           errors.push("duplicate_key_warning");
           valid = false;
         }
-        if (row.masked && row.value.length < 8) {
+        if (row.masked && row.value.length < 8 && row.status !== "existing") {
           errors.push("masked_min_length_warning");
           valid = false;
         }
@@ -221,13 +221,14 @@ export function useEnvVars() {
       // 1. Process deletions first
       const deletions = rows.filter(r => r.status === "deleted");
       for (const row of deletions) {
+        const originalScope = row.originalSnapshot?.environment_scope ?? row.environment_scope;
         try {
           await invoke("delete_variable", {
             params: {
               instance_id: instanceId,
               project_id: projectId,
               key: row.originalKey,
-              environment_scope: row.environment_scope,
+              environment_scope: originalScope,
             }
           });
           result.deleted++;
@@ -240,9 +241,11 @@ export function useEnvVars() {
       const updates = rows.filter(r => r.status === "edited");
       for (const row of updates) {
         const isKeyRenamed = row.originalKey !== row.key;
+        const originalScope = row.originalSnapshot?.environment_scope ?? row.environment_scope;
+        const isScopeChanged = originalScope !== row.environment_scope;
 
-        // Key rename or masked fallback: delete old + create new
-        if (isKeyRenamed || row.isMaskedOnServer) {
+        // Key rename, scope change, or masked: delete old + create new
+        if (isKeyRenamed || isScopeChanged || row.isMaskedOnServer) {
           try {
             await invoke("delete_variable", {
               params: {

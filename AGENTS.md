@@ -53,5 +53,5 @@ src-tauri/src/
 - Views use `ConfirmDialog` instead of native `confirm()`
 - Toast notifications via `useToast()` from `ToastContext`
 - All views wrapped in `.view-enter` for fade-in animation
-- Env var masked update: delete + recreate fallback when update fails
+- Env var masked update: always uses delete + recreate (no in-place update for masked vars)
 - CSS: per-component files, global vars in App.css

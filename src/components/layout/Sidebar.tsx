@@ -24,14 +24,16 @@ export function Sidebar({ view, setView }: SidebarProps) {
       {navItems.map(item => {
         const Icon = item.icon;
         return (
-          <div
+          <button
+            type="button"
             key={item.key}
             className={`nav-item ${view === item.key ? "active" : ""}`}
             onClick={() => setView(item.key)}
+            aria-current={view === item.key ? "page" : undefined}
           >
             <Icon size={18} />
             {t(item.labelKey)}
-          </div>
+          </button>
         );
       })}
     </div>
