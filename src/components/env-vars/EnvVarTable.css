@@ -1,0 +1,151 @@
+.envvar-table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+}
+
+.envvar-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.envvar-table thead {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.envvar-table th {
+  padding: 10px 12px;
+  text-align: left;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.envvar-th-status {
+  width: 32px;
+}
+
+.envvar-table td {
+  padding: 8px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  vertical-align: top;
+}
+
+.envvar-row-new {
+  border-left: 3px solid #4ade80;
+  background: rgba(74, 222, 128, 0.04);
+}
+
+.envvar-row-edited {
+  border-left: 3px solid #fbbf24;
+  background: rgba(251, 191, 36, 0.04);
+}
+
+.envvar-row-existing {
+  border-left: 3px solid transparent;
+}
+
+.envvar-row-deleted {
+  border-left: 3px solid #f87171;
+  background: rgba(248, 113, 113, 0.04);
+  opacity: 0.6;
+}
+
+.envvar-row-deleted input,
+.envvar-row-deleted select {
+  text-decoration: line-through;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.envvar-input {
+  width: 100%;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  color: white;
+  font-size: 0.85rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  box-sizing: border-box;
+}
+
+.envvar-input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(252, 109, 38, 0.12);
+  outline: none;
+}
+
+.envvar-select {
+  width: 100%;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  color: white;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+.envvar-scope-input {
+  width: 80px;
+}
+
+.envvar-value-cell {
+  position: relative;
+}
+
+.envvar-toggle-btn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 2px;
+}
+
+.envvar-checkbox-cell {
+  text-align: center;
+}
+
+.envvar-checkbox-cell input[type="checkbox"] {
+  width: auto;
+  cursor: pointer;
+  accent-color: var(--accent-color);
+}
+
+.envvar-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.envvar-error {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 4px;
+}
+
+.envvar-error span {
+  color: #f87171;
+  font-size: 0.75rem;
+}
+
+.envvar-conflict-cell {
+  padding: 0 12px 8px !important;
+  border-top: none !important;
+}
+
+.envvar-empty {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 40px 0;
+}

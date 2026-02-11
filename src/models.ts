@@ -21,3 +21,93 @@ export interface PackageUploadParams {
   file_name: string;
   file_path: string;
 }
+
+// Environment Variables
+export interface GitLabVariable {
+  key: string;
+  value: string;
+  variable_type: string;
+  protected: boolean;
+  masked: boolean;
+  environment_scope: string;
+  description: string;
+}
+
+export interface CreateVariableParams {
+  instance_id: string;
+  project_id: string;
+  key: string;
+  value: string;
+  variable_type: string;
+  protected: boolean;
+  masked: boolean;
+  environment_scope: string;
+  description: string;
+}
+
+export interface UpdateVariableParams {
+  instance_id: string;
+  project_id: string;
+  key: string;
+  value: string;
+  variable_type: string;
+  protected: boolean;
+  masked: boolean;
+  environment_scope: string;
+  description: string;
+}
+
+export interface DeleteVariableParams {
+  instance_id: string;
+  project_id: string;
+  key: string;
+  environment_scope: string;
+}
+
+export type EnvVarStatus = "existing" | "new" | "edited" | "deleted";
+
+export interface EnvVarRowSnapshot {
+  key: string;
+  value: string;
+  variable_type: string;
+  protected: boolean;
+  masked: boolean;
+  environment_scope: string;
+  description: string;
+}
+
+export interface EnvVarRow {
+  rowId: string;
+  key: string;
+  value: string;
+  variable_type: string;
+  protected: boolean;
+  masked: boolean;
+  environment_scope: string;
+  description: string;
+  status: EnvVarStatus;
+  originalKey: string;
+  isMaskedOnServer: boolean;
+  errors: string[];
+  originalSnapshot: EnvVarRowSnapshot | null;
+}
+
+export interface SaveError {
+  type: "create" | "update" | "delete";
+  key: string;
+  error: string;
+}
+
+export interface ImportProtection {
+  protected: boolean;
+  masked: boolean;
+}
+
+export interface ImportResult {
+  imported: number;
+  merged: number;
+}
+
+export type ImportPreset = "unprotected" | "protected" | "protected_masked";
+
+export type View = "actions" | "instances" | "projects" | "registry-upload" | "env-vars";

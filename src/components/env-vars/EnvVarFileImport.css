@@ -1,0 +1,77 @@
+.file-import-panel {
+  margin-bottom: 16px;
+}
+
+.file-import-select {
+  border: 2px dashed var(--glass-border);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  margin-bottom: 16px;
+}
+
+.file-import-select:hover {
+  border-color: var(--accent-color);
+  background: rgba(252, 109, 38, 0.05);
+  color: var(--text-primary);
+}
+
+.file-import-preview {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.file-import-preview h4 {
+  margin: 0 0 12px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.file-import-preview-list {
+  max-height: 240px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.file-import-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+}
+
+.file-import-key {
+  color: #4ade80;
+  font-weight: 600;
+}
+
+.file-import-eq {
+  color: var(--text-secondary);
+}
+
+.file-import-val {
+  color: var(--text-secondary);
+}
+
+.file-import-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}

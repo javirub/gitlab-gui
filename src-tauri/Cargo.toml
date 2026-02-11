@@ -29,4 +29,5 @@ tauri-plugin-shell = "2.3.4"
 tauri-plugin-fs = "2.4.5"
 tauri-plugin-dialog = "2.6.0"
 tauri-plugin-store = "2.4.2"
+urlencoding = "2"
 
