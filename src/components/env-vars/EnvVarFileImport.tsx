@@ -56,10 +56,10 @@ export function EnvVarFileImport({ onImport }: EnvVarFileImportProps) {
 
   return (
     <div className="file-import-panel">
-      <div className="file-import-select" onClick={handleSelectFile}>
+      <button type="button" className="file-import-select" onClick={handleSelectFile} aria-haspopup="dialog">
         <FileUp size={28} />
         <span>{filePath || t("select_env_file")}</span>
-      </div>
+      </button>
 
       {preview.length > 0 && (
         <div className="file-import-preview">

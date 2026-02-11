@@ -31,7 +31,7 @@ export function RegistryUploadView({ instances, projects, setView }: RegistryUpl
     const selected = await open({ multiple: false });
     if (selected && !Array.isArray(selected)) {
       const fileName = selected.split(/[\\/]/).pop() || "";
-      setUploadParams({ ...uploadParams, file_path: selected, file_name: fileName });
+      setUploadParams(prev => ({ ...prev, file_path: selected, file_name: fileName }));
     }
   }
 
@@ -107,7 +107,7 @@ export function RegistryUploadView({ instances, projects, setView }: RegistryUpl
           />
         </div>
 
-        <div className="file-select-area" onClick={pickFile}>
+        <button type="button" className="file-select-area" onClick={pickFile} aria-haspopup="dialog">
           {uploadParams.file_path ? (
             <div>
               <FileUp size={20} className="card-icon" />
@@ -120,7 +120,7 @@ export function RegistryUploadView({ instances, projects, setView }: RegistryUpl
               <span>{t("click_select_file")}</span>
             </div>
           )}
-        </div>
+        </button>
 
         <button onClick={handleUpload} disabled={isUploading}>
           {isUploading ? <LoadingSpinner size={18} /> : t("upload_btn")}

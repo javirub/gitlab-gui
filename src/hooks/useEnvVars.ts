@@ -176,7 +176,8 @@ export function useEnvVars() {
   function undoRowDelete(rowId: string) {
     setRows(prev => prev.map(row => {
       if (row.rowId !== rowId || row.status !== "deleted") return row;
-      return { ...row, status: "existing" as const };
+      const restoredStatus = row.originalSnapshot ? "edited" as const : "existing" as const;
+      return { ...row, status: restoredStatus };
     }));
   }
 

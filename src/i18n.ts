@@ -136,7 +136,7 @@ const resources = {
             "masked_min_length_warning": "Masked variables must have values of at least 8 characters.",
 
             // Environment Variables - Warnings
-            "masked_var_warning": "A masked variable with this key already exists. Saving will overwrite it via delete + recreate.",
+            "masked_var_warning": "A masked variable with this key already exists on the server. Remove the existing row first to replace it.",
             "duplicate_key_warning": "Duplicate key detected in the table.",
 
             // Environment Variables - Save Results
@@ -282,7 +282,7 @@ const resources = {
             "masked_min_length_warning": "Las variables enmascaradas deben tener valores de al menos 8 caracteres.",
 
             // Environment Variables - Warnings
-            "masked_var_warning": "Ya existe una variable enmascarada con esta clave. Al guardar se sobreescribirá mediante eliminar + recrear.",
+            "masked_var_warning": "Ya existe una variable enmascarada con esta clave en el servidor. Elimina la fila existente primero para reemplazarla.",
             "duplicate_key_warning": "Se detectó una clave duplicada en la tabla.",
 
             // Environment Variables - Save Results
