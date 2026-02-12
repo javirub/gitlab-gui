@@ -6,7 +6,8 @@
   background: rgba(251, 191, 36, 0.1);
   border: 1px solid rgba(251, 191, 36, 0.3);
   border-radius: 6px;
-  color: #fbbf24;
+  color: var(--accent-yellow);
   font-size: 0.78rem;
   margin-top: 4px;
+  box-shadow: 0 0 12px var(--glow-yellow);
 }

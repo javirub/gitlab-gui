@@ -3,7 +3,7 @@
 }
 
 .file-import-select {
-  border: 2px dashed var(--glass-border);
+  border: 2px dashed rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 24px;
   text-align: center;
@@ -13,6 +13,7 @@
   align-items: center;
   gap: 8px;
   color: var(--text-secondary);
+  box-shadow: none;
   transition: all 0.2s;
   margin-bottom: 16px;
 }
@@ -21,10 +22,15 @@
   border-color: var(--accent-color);
   background: rgba(252, 109, 38, 0.05);
   color: var(--text-primary);
+  box-shadow: inset 0 0 30px rgba(252, 109, 38, 0.04);
+  transform: none;
+  filter: none;
 }
 
 .file-import-preview {
   background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
   border: 1px solid var(--glass-border);
   border-radius: 12px;
   padding: 16px;
@@ -53,10 +59,15 @@
   border-radius: 4px;
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 0.8rem;
+  transition: background var(--duration-fast);
+}
+
+.file-import-preview-row:hover {
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .file-import-key {
-  color: #4ade80;
+  color: var(--accent-green);
   font-weight: 600;
 }
 

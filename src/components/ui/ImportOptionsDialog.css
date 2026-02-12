@@ -2,8 +2,8 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,15 +13,15 @@
 
 .import-options-dialog {
   background: rgba(22, 25, 34, 0.98);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(var(--blur-xl));
+  -webkit-backdrop-filter: blur(var(--blur-xl));
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   padding: 28px;
   max-width: 420px;
   width: 90%;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
-  animation: importOptScaleIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-dialog);
+  animation: importOptScaleIn 0.35s var(--ease-spring);
 }
 
 .import-options-title {
@@ -57,11 +57,15 @@
   transition: all 0.2s;
   text-align: left;
   width: 100%;
+  box-shadow: none;
 }
 
 .import-option-btn:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: var(--accent-color);
+  transform: translateX(4px);
+  box-shadow: 0 0 16px var(--glow-orange);
+  filter: none;
 }
 
 .import-option-icon {
@@ -76,17 +80,17 @@
 
 .import-option-icon-unprotected {
   background: rgba(74, 222, 128, 0.15);
-  color: #4ade80;
+  color: var(--accent-green);
 }
 
 .import-option-icon-protected {
   background: rgba(251, 191, 36, 0.15);
-  color: #fbbf24;
+  color: var(--accent-yellow);
 }
 
 .import-option-icon-masked {
   background: rgba(248, 113, 113, 0.15);
-  color: #f87171;
+  color: var(--accent-red);
 }
 
 .import-option-text {
@@ -114,12 +118,16 @@
   color: var(--text-secondary);
   cursor: pointer;
   font-weight: 500;
+  box-shadow: none;
   transition: all 0.2s;
 }
 
 .import-options-cancel:hover {
   background: rgba(255, 255, 255, 0.12);
   color: var(--text-primary);
+  transform: none;
+  filter: none;
+  box-shadow: none;
 }
 
 @keyframes importOptFadeIn {
@@ -129,7 +137,7 @@
 
 @keyframes importOptScaleIn {
   from {
-    transform: scale(0.95);
+    transform: scale(0.92);
     opacity: 0;
   }
   to {

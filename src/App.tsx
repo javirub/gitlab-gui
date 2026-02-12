@@ -32,6 +32,7 @@ function App() {
       <div className="app-container">
         <Sidebar view={view} setView={setView} />
         <main className="main-content">
+          <div className="bg-orbs" aria-hidden="true" />
           {view === "actions" && <ActionsView setView={setView} />}
           {view === "instances" && (
             <InstancesView {...instancesHook} deleteInstance={handleDeleteInstance} />

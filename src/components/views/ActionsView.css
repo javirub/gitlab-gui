@@ -1,4 +1,10 @@
 .card-icon {
   vertical-align: middle;
   margin-right: 4px;
+  opacity: 0.7;
+  transition: opacity var(--duration-normal);
+}
+
+.card-hoverable:hover .card-icon {
+  opacity: 1;
 }
