@@ -1,4 +1,6 @@
 .sidebar {
+  position: relative;
+  z-index: 1;
   width: 260px;
   background-color: var(--sidebar-bg);
   backdrop-filter: blur(var(--blur-lg));
