@@ -46,7 +46,7 @@
 
 .toast-info {
   border-left-color: var(--accent-blue);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 16px rgba(96, 165, 250, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 16px var(--glow-blue);
 }
 
 .toast-success .toast-icon { color: var(--accent-green); }

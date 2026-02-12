@@ -24,6 +24,7 @@
   --glow-green: rgba(74, 222, 128, 0.2);
   --glow-red: rgba(248, 113, 113, 0.2);
   --glow-yellow: rgba(251, 191, 36, 0.2);
+  --glow-blue: rgba(96, 165, 250, 0.2);
 
   /* Blur scale */
   --blur-sm: 8px;
@@ -414,5 +415,29 @@ button:disabled {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .bg-orbs::before,
+  .bg-orbs::after {
+    animation: none;
+  }
+
+  .view-enter {
+    animation: none;
+  }
+
+  .grid > * {
+    animation: none;
+  }
+
+  .card,
+  .card-hoverable,
+  button,
+  .icon-btn,
+  .nav-item {
+    transition-duration: 0.01ms;
   }
 }
