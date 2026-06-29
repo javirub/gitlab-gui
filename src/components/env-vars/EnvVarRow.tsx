@@ -20,7 +20,7 @@ export function EnvVarRowComponent({
   const [showValue, setShowValue] = useState(false);
 
   const isDeleted = row.status === "deleted";
-  const showConflict = row.status === "new" && existingMaskedKeys.has(row.key) && row.key.length > 0;
+  const showConflict = row.status === "new" && existingMaskedKeys.has(`${row.key} ${row.environment_scope}`) && row.key.length > 0;
 
   const statusColors: Record<string, string> = {
     new: "#4ade80",

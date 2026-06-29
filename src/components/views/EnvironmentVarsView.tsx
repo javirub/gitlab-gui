@@ -87,10 +87,10 @@ export function EnvironmentVarsView({ instances, projects }: EnvironmentVarsView
     setPendingImport({ parsed, source: "file" });
   }
 
-  function handleImportConfirm(preset: ImportPreset) {
+  function handleImportConfirm(preset: ImportPreset, environmentScope: string) {
     if (!pendingImport) return;
     const protection = presetToProtection(preset);
-    const result = envVars.addRowsFromParsed(pendingImport.parsed, protection);
+    const result = envVars.addRowsFromParsed(pendingImport.parsed, protection, environmentScope);
     showToast(importToastMessage(pendingImport.source, result.imported, result.merged), "success");
     setPendingImport(null);
   }

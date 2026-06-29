@@ -130,6 +130,15 @@ const resources = {
             "import_protected_desc": "Only exposed to protected branches and tags",
             "import_protected_masked": "Protected & Masked",
             "import_protected_masked_desc": "Protected and hidden in job logs",
+            "import_step_protection": "Step 1/2 · Protection",
+            "import_step_environment": "Step 2/2 · Environment",
+            "import_env_question": "Which environment do these variables belong to?",
+            "import_env_all": "All environments (*)",
+            "import_env_all_desc": "GitLab global namespace",
+            "import_env_specific": "Specific environment",
+            "import_env_specific_placeholder": "e.g. production",
+            "import_back": "Back",
+            "import_confirm": "Import",
 
             // Environment Variables - Validation
             "key_required": "Key is required",
@@ -276,6 +285,15 @@ const resources = {
             "import_protected_desc": "Solo visible en ramas y tags protegidos",
             "import_protected_masked": "Protegida y enmascarada",
             "import_protected_masked_desc": "Protegida y oculta en logs de jobs",
+            "import_step_protection": "Paso 1/2 · Protección",
+            "import_step_environment": "Paso 2/2 · Entorno",
+            "import_env_question": "¿A qué entorno pertenecen estas variables?",
+            "import_env_all": "Todos los entornos (*)",
+            "import_env_all_desc": "namespace global de GitLab",
+            "import_env_specific": "Entorno específico",
+            "import_env_specific_placeholder": "p. ej. production",
+            "import_back": "Atrás",
+            "import_confirm": "Importar",
 
             // Environment Variables - Validation
             "key_required": "La clave es obligatoria",

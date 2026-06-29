@@ -109,6 +109,84 @@
   color: var(--text-secondary);
 }
 
+.import-option-btn-selected {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 16px var(--glow-orange);
+}
+
+.import-env-question {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0 0 12px;
+}
+
+.import-env-input {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.import-env-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 12px var(--glow-orange);
+}
+
+.import-options-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.import-options-back {
+  flex: 1;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: none;
+  transition: all 0.2s;
+}
+
+.import-options-back:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  filter: none;
+  box-shadow: none;
+}
+
+.import-options-confirm {
+  flex: 2;
+  padding: 10px;
+  background: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.import-options-confirm:hover:not(:disabled) {
+  box-shadow: 0 0 16px var(--glow-orange);
+}
+
+.import-options-confirm:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 .import-options-cancel {
   width: 100%;
   padding: 10px;

@@ -14,11 +14,12 @@ interface EnvVarTableProps {
 export function EnvVarTable({ rows, onUpdate, onDelete, onUndoEdit, onUndoDelete }: EnvVarTableProps) {
   const { t } = useTranslation();
 
-  // Collect masked keys from non-deleted server rows for conflict detection
+  // Collect masked keys (scoped by environment) from non-deleted server rows for conflict
+  // detection. The same key under a different scope is not a conflict in GitLab.
   const existingMaskedKeys = new Set<string>();
   for (const row of rows) {
     if (row.status !== "deleted" && row.isMaskedOnServer) {
-      existingMaskedKeys.add(row.originalKey);
+      existingMaskedKeys.add(`${row.originalKey} ${row.environment_scope}`);
     }
   }
 
