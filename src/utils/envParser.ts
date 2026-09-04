@@ -3,9 +3,26 @@ export interface ParsedEnvVar {
   value: string;
 }
 
+const KEY = "[A-Za-z_][A-Za-z0-9_]*";
+// KEY=VALUE
+const EQUALS_FORM = new RegExp(`^(${KEY})\\s*=\\s*(.*)$`);
+// KEY: VALUE (YAML style). The space after the colon is required so that a
+// bare URL such as `https://gitlab.example.com/foo` is not read as the
+// variable `https` with the value `//gitlab.example.com/foo`.
+const COLON_FORM = new RegExp(`^(${KEY}):[ \\t]+(.*)$`);
+
+function stripSurroundingQuotes(value: string): string {
+  if (value.length < 2) return value;
+  const first = value[0];
+  const last = value[value.length - 1];
+  if ((first === '"' && last === '"') || (first === "'" && last === "'")) {
+    return value.slice(1, -1);
+  }
+  return value;
+}
+
 export function parseEnvText(text: string): ParsedEnvVar[] | null {
-  const lines = text.split(/\r?\n/);
-  const nonEmptyLines = lines.filter(l => {
+  const nonEmptyLines = text.split(/\r?\n/).filter((l) => {
     const trimmed = l.trim();
     return trimmed.length > 0 && !trimmed.startsWith("#");
   });
@@ -17,32 +34,16 @@ export function parseEnvText(text: string): ParsedEnvVar[] | null {
   for (const line of nonEmptyLines) {
     const trimmed = line.trim();
 
-    // Skip comments and empty lines
-    if (trimmed.startsWith("#") || trimmed.length === 0) continue;
-
-    // Remove `export ` prefix
+    // Remove the `export ` prefix
     const cleaned = trimmed.startsWith("export ") ? trimmed.slice(7) : trimmed;
 
-    // Try KEY=VALUE or KEY: VALUE
-    let match = cleaned.match(/^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)/);
-    if (!match) {
-      match = cleaned.match(/^([A-Za-z_][A-Za-z0-9_]*)\s*:\s*(.*)/);
-    }
+    const match = cleaned.match(EQUALS_FORM) ?? cleaned.match(COLON_FORM);
+    if (!match) continue;
 
-    if (match) {
-      const key = match[1];
-      let value = match[2].trim();
-
-      // Strip surrounding quotes
-      if (
-        (value.startsWith('"') && value.endsWith('"')) ||
-        (value.startsWith("'") && value.endsWith("'"))
-      ) {
-        value = value.slice(1, -1);
-      }
-
-      parsed.push({ key, value });
-    }
+    parsed.push({
+      key: match[1],
+      value: stripSurroundingQuotes(match[2].trim()),
+    });
   }
 
   // If less than 50% of non-empty lines parsed, it's probably not env-var content
